@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quest</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #0d0247;
+        }
+
+        img {
+            max-width: 100%;
+            margin-top: -5px;
+        }
+
+        .change {
+            position: relative;
+            display: inline-block;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 40%;
+            left: 70%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(3, 2, 8, 0.8); 
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(88, 88, 88, 0.3);
+        }
+
+        input {
+            font-family: fantasy;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            font-family: fantasy;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: rgb(0, 0, 0);
+            background-color: #fcd15e;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ffab52;
+        }
+
+        @media (min-width: 1080px) {
+            input {
+                font-size: 20px; 
+                padding: 15px;   
+                width: 300px;    
+            }
+
+            button {
+                font-size: 20px; 
+                padding: 15px 25px;
+            }
+
+            .overlay {
+                padding: 30px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <img src="1.png" alt="Изображение">
+    </div>
+    <div>
+        <img src="2.png" alt="Изображение" >
+    </div>
+    <div>
+        <img src="3.png" alt="Изображение" >
+    </div>
+    <div>
+        <img src="4.png" alt="Изображение" >
+    </div>
+    <div>
+        <img src="5.png" alt="Изображение" >
+    </div>
+    <div class="change" style="margin-bottom: 200px;">
+        <img id="image" src="6.png" alt="Изображение" >
+
+        <div class="overlay" id="overlay">
+            <h1></h1>
+            <input type="text" id="wordInput" placeholder="Введите ответ...">
+            <button onclick="changeImage()">ВВЕСТИ</button>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 0;
+        const imageOrder = [
+            "6.png",  
+            "7.png",
+            "8.png",
+            "9.png",
+            "10.png",
+            "11.png",
+            "12.png",
+            "13.png",
+            "14.png" 
+        ];
+
+        const answers = [
+            "василиса",
+            "безмолвное озеро",
+            "заброшенная деревня",
+            "одинокая башня",
+            "тайный путь",
+            "десять восемь",
+            "замок",
+            "истина загадка путь звезда"
+        ];
+
+        function changeImage() {
+            const input = document.getElementById('wordInput').value.toLowerCase();
+            const image = document.getElementById('image');
+            const overlay = document.getElementById('overlay');
+
+            if (input === answers[currentStep]) {
+                currentStep++; 
+                if (currentStep < imageOrder.length) {
+                    image.src = imageOrder[currentStep];
+                    image.alt = `Изображение для шага ${currentStep}`;
+                    document.getElementById('wordInput').value = ""; 
+
+                    if (imageOrder[currentStep] === "14.png") {
+                        overlay.style.display = "none";
+                    }
+                } else {
+                    alert("Поздравляем! Вы завершили квест.");
+                }
+            } else {
+                alert("Неправильный ответ, попробуй еще раз!");
+            }
+        }
+    </script>
+</body>
+</html>
